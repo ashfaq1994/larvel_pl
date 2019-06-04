@@ -36,6 +36,8 @@ class RoomTypeController extends Controller
      */
     public function store(Request $request)
     {
+
+       
         RoomType::create($request->all());
 
         return back();

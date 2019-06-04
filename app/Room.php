@@ -8,10 +8,16 @@ class Room extends Model
 {
     protected $guarded = [];
 
-    function roomtype()
+    function RoomType()
     {
-        return $this->hasMany(RoomType::class);
+        return $this->belongsTo(RoomType::class);
     }
+
+    public function gallery()
+    {   
+      return $this->belongsToMany(Gallery::class, 'image','room_id','gallery_id')->withTimestamps();
+    }
+
 
     public function setNameAttribute($value)
     {

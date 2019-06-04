@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomType extends Model
 {
+    protected $guarded = [];
     //
    public function room()
    {
-      return $this->belongsTo(Room::class);
+      return $this->hasMany(Room::class);
    }
 
    public function setNameAttribute($value)

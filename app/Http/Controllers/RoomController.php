@@ -8,8 +8,8 @@ use App\User;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoomStore;
-
-
+use App\RoomType;
+use App\Gallery;
 
 class RoomController extends Controller
 {
@@ -18,11 +18,12 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
             return Datatables::of(Room::query())
-            ->addColumn('feature', '<img class="img-fluid w-100" src="{{$feature_img}}">')
+            ->addColumn('feature', '<img class="img-fluid w-100" src="{{asset("$feature_img")}}">')
             ->addColumn('edit', '<a class="btn btn-info" href="{{route("room.edit",$slug)}}">Edit</a>')
             ->addColumn('delete', '<a class="btn btn-danger" href="{{route("room.destroy",$slug)}}">Delete</a>')
             ->rawColumns(['feature','edit','delete'])
@@ -41,7 +42,10 @@ class RoomController extends Controller
      */
     public function create()
     {
-       return view('admin.room.create');
+
+       $roomstypes = RoomType::all();
+
+       return view('admin.room.create', compact('roomstypes'));
     }
 
     /**
@@ -50,15 +54,27 @@ class RoomController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RoomStore $request)
+    public function store(Request $request)
     {
-        Room::create([
+        //  dd($request->all());
+       $room = Room::create([
             'name' => request('name'),
             'feature_img' => request('feature_img')->store('room'),
             'no_adults' => request('no_adults'),
             'no_childs' => request('no_childs'),
             'price' => request('price'),
+            'room_type_id' => request('room_typeid'),
         ]);
+
+        foreach ($request->gallery as $key => $value) {
+            $tab = Gallery::create($value);
+
+               $room->gallery()->attach($tab);
+       }
+
+        // $gallery = Gallery::create(['name' => $request->image,]);   
+
+        //  $room->gallery()->attach(request($gallery));
 
          return back();
     }
@@ -111,4 +127,6 @@ class RoomController extends Controller
 
       return back();
     }
+
+
 }

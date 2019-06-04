@@ -17,6 +17,7 @@ class CreateRoomsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
+            $table->unsignedBigInteger('room_type_id');
             $table->string('feature_img');
             $table->integer('no_adults');
             $table->integer('no_childs');

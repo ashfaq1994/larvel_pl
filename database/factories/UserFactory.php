@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\User;
+
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 use App\Room;
@@ -18,7 +18,7 @@ use App\RoomType;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(App\User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
@@ -29,11 +29,17 @@ $factory->define(User::class, function (Faker $faker) {
 });
 
 
+
+
 $factory->define(Room::class, function (Faker $faker) {
     $name = $faker->sentence();
     return [
         'name' => $name,
         'slug' => $name,
+        'room_type_id' => function ()
+        {
+           return factory('App\RoomType')->create()->id;  
+        },
         'feature_img' => $faker->imageUrl($width = 640, $height = 480),
         'no_adults' => $faker->numberBetween(1,3),
         'no_childs' => $faker->numberBetween(1,2),
@@ -48,10 +54,6 @@ $factory->define(RoomType::class, function (Faker $faker) {
     return [
         'name' => $name,
         'slug' => $name,
-        'room_id' => function ()
-        {
-           return factory('App\Room')->create()->id;  
-        },
         'no_room' => $faker->numberBetween(1,4),
         'capacity' => $faker->numberBetween(1,4),
     ];

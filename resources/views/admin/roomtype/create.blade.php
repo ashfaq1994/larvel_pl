@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Create Rooms</div>
-                {{-- @if ($errors->any())
+                @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -14,9 +14,9 @@
                         @endforeach
                     </ul>
                 </div>
-               @endif --}}
+               @endif
                 <div class="card-body">
-                    <form action="{{ route('room.store') }}" method="post">  
+                    <form action="{{ route('room-type.store') }}" method="post">  
                         @csrf
                     <div class="form-group">
                         <label for="name">Roomtype Name</label>

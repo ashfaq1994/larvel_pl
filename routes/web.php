@@ -12,7 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // return view('welcome');
+    return \App\Room::find(1)->RoomType->name;
+
 });
 
 Auth::routes();

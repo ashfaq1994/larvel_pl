@@ -63,6 +63,19 @@
                             </div>  
                             @endif 
                         </div>
+
+                        <div class="form-group">
+                            <label for="room_type">Room Type</label>
+                            <select id="room_type" class="form-control" name="room_typeid">
+                              @foreach ($roomstypes as $roomstype)
+                                  <option value="{{ $roomstype->id }}"  {{ (collect(old('room_typeid'))->contains($roomstype->id)) ? 'selected':'' }}>{{ $roomstype->name }}</option>
+                              @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Text</label>
+                            <input id="image" class="form-control" type="text" name="gallery[0][name]">
+                        </div>
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-info">
                             <input type="reset" value="Reset" class="btn btn-danger ">
