@@ -13,13 +13,20 @@
 
 Route::get('/', function () {
     // return view('welcome');
-    return \App\Room::find(1)->RoomType->name;
+    // return \App\Room::find(1)->RoomType->name;
+
+    session()->flush();
+
+
 
 });
 
 Auth::routes();
 
 
+Route::get('/search', 'Search@index')->name('Search');
+Route::get('/check', 'Search@check')->name('check');
+Route::get('/checkroom', 'Search@checkRoom')->name('checkRoom');
 Route::get('/room/anyData', 'RoomController@anyData')->name('room.anyData');
 Route::resource('room', 'RoomController');
 

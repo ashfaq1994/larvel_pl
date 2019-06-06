@@ -87,7 +87,7 @@ class RoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
+        return view('front.book', ['room' => $room]);
     }
 
     /**
