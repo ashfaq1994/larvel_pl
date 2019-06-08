@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-9">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">Dashboard</div>
                 <div class="row">
@@ -26,35 +26,38 @@
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-8">
         <form action="#" method="get" id="bookingform">
-                <div class="form-group">
-                    <label for="my-input">Check in</label>
-                    <input id="my-input"
-                    @if (session()->has('key'))
-                        value="{{ Session::get('key')['check_in'] }}"
-                    @endif
-                    class="form-control" type="date" name="check_in">
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="my-input">Check in</label>
+                        <input id="my-input"
+                        @if (session()->has('key'))
+                            value="{{ Session::get('key')['check_in'] }}"
+                        @endif
+                        class="form-control" type="date" name="check_in">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="my-input">Checkout</label>
+                        <input id="my-input"
+                        @if (session()->has('key'))
+                        value="{{ Session::get('key')['check_out'] }}"
+                        @endif
+                        class="form-control" type="date" name="check_out">
+                    </div>
+                    <div class="form-group col-4">
+                        <h5>Room</h5>
+                       <select onchange="selectRoom(event)" name="room_id" id="room_id" class="form-control">
+                         @for ($i = 1; $i <= $room->roomType->no_room ; $i++)
+                            <option value="{{ $i }}">{{ $i  }}</option> 
+                         @endfor
+                       </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="my-input">Checkout</label>
-                    <input id="my-input"
-                    @if (session()->has('key'))
-                    value="{{ Session::get('key')['check_out'] }}"
-                    @endif
-                    class="form-control" type="date" name="check_out">
-                </div>
-                 
-                <div class="form-group">
-                    <h5>Room</h5>
-                   <select onchange="selectRoom(event)" name="room_id" id="room_id" class="form-control">
-                     @for ($i = 1; $i <= $room->roomType->no_room ; $i++)
-                        <option value="{{ $i }}">{{ $i  }}</option> 
-                     @endfor
-                   </select>
-                </div>
+                
                 <div id="append">
-                    <div class="form-group">
+                  <div class="row">
+                    <div class="form-group col-4">
                         <label for="my-input">Adult</label>
                         <input id="my-input"
                         @if (session()->has('key'))
@@ -62,7 +65,7 @@
                         @endif
                         class="form-control" type="number" name="adult">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group col-4">
                         <label for="my-input">Child</label>
                         <input id="my-input"
                         @if (session()->has('key'))
@@ -70,6 +73,13 @@
                         @endif
                         class="form-control" type="number" name="child">
                     </div>
+                    <div class="form-group col-4">
+                        <label for="my-input">Price</label>
+                        <input readonly disabled id="my-input"
+                        value="{{ $room->price }}"
+                        class="form-control" type="number" name="price">
+                    </div>
+                  </div>
                 </div>
                 <div id="addmsg">
                 </div>
@@ -78,6 +88,8 @@
         </div>
     </div>
 </div>
+<booking-component data-apartments='[{ "price": "23000", "rooms": "12" }, { "price": "42000", "rooms": "32" }]'></booking-component> 
+
 @endsection
 
 @section('js')
