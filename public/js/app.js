@@ -1703,18 +1703,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   // mounted() {
   //     console.log('Bookign Form');
   // },
   data: function data() {
     return {
-      inputs: []
+      key: '',
+      roomLists: [{
+        'id': 1,
+        adult: 'adult1',
+        child: 'child1'
+      }, {
+        'id': 2,
+        adult: 'adult2',
+        child: 'child2'
+      }, {
+        'id': 3,
+        adult: 'adult3',
+        child: 'child3'
+      }]
     };
   },
   methods: {
-    addRoom: function addRoom() {
-      console.log('hello world');
+    onChange: function onChange(event) {
+      console.log(event.target.value);
     }
   }
 });
@@ -37043,11 +37099,160 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("button", { on: { click: _vm.addRoom } }, [_vm._v("Hello")])
-  ])
+  return _c(
+    "form",
+    { attrs: { action: "#", method: "get", id: "bookingform" } },
+    [
+      _c("div", { staticClass: "row" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group col-4" }, [
+          _c("h5", [_vm._v("Room")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.key,
+                  expression: "key"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "room_id", id: "room_id" },
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.key = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.onChange($event)
+                  }
+                ]
+              }
+            },
+            [
+              _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "4" } }, [_vm._v("4")])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(2),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "append" } }, [
+        _c(
+          "div",
+          { staticClass: "row" },
+          _vm._l(_vm.roomLists, function(room, index) {
+            return _c("div", { staticClass: "form-group col-4" }, [
+              _vm._v(
+                "\n             " + _vm._s(room.adult) + "\n             "
+              ),
+              _c("label", { attrs: { for: "my-input" } }, [_vm._v("Adult")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: room.adult,
+                    expression: "room.adult"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "my-input", type: "text", name: "adult" },
+                domProps: { value: room.adult },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(room, "adult", $event.target.value)
+                  }
+                }
+              })
+            ])
+          }),
+          0
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "addmsg" } }),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Book Now")]
+      )
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-4" }, [
+      _c("label", { attrs: { for: "my-input" } }, [_vm._v("Check in")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { id: "my-input", type: "date", name: "check_in" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-4" }, [
+      _c("label", { attrs: { for: "my-input" } }, [_vm._v("Checkout")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { id: "my-input", type: "date", name: "check_out" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { attrs: { id: "append" } }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "form-group col-4" }, [
+          _c("label", { attrs: { for: "my-input" } }, [_vm._v("Adult")]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass: "form-control",
+            attrs: { id: "my-input", type: "number", name: "adult" }
+          })
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -49490,8 +49695,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\purpel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\purpel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\purple\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\purple\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

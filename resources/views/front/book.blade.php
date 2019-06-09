@@ -14,11 +14,11 @@
                                 <h5 class="card-title">{{ $room->name }}</h5>
                               </div>
                               <ul class="list-group list-group-flush">
-                        
+
                              <li class="list-group-item">Capacity: {{ $room->roomType->capacity }}</li>
-                            
+
                                 <li class="list-group-item">Price: ₨ {{ $room->price }}</li>
-                    
+
                               </ul>
                             </div>
                       </div>
@@ -49,13 +49,13 @@
                         <h5>Room</h5>
                        <select onchange="selectRoom(event)" name="room_id" id="room_id" class="form-control">
                          @for ($i = 1; $i <= $room->roomType->no_room ; $i++)
-                            <option value="{{ $i }}">{{ $i  }}</option> 
+                            <option value="{{ $i }}">{{ $i  }}</option>
                          @endfor
                        </select>
                     </div>
                 </div>
-                
-                <div id="append">
+
+                <div id="append" class="animated fadeIn">
                   <div class="row">
                     <div class="form-group col-4">
                         <label for="my-input">Adult</label>
@@ -83,18 +83,30 @@
                 </div>
                 <div id="addmsg">
                 </div>
+                <hr>
+                 <span>TOtal</span><h4 id="cart" ></h4>
                 <button type="submit" class="btn btn-primary">Book Now</button>
             </form>
         </div>
     </div>
 </div>
-<booking-component data-apartments='[{ "price": "23000", "rooms": "12" }, { "price": "42000", "rooms": "32" }]'></booking-component> 
 
 @endsection
 
+
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+@endsection
 @section('js')
 <script>
     var i = 1;
+
+    var cartTotoal;
+    const caclTotal = () => {
+
+        return this.caclTotal = 100;
+    }
+    document.getElementById('cart').innerHTML = cartTotoal;
  function selectRoom(event)
  {
     var selectElement = event.target;
