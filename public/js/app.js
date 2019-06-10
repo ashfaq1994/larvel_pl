@@ -1746,31 +1746,60 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // mounted() {
-  //     console.log('Bookign Form');
-  // },
+  mounted: function mounted() {
+    this.selectRoom();
+  },
   data: function data() {
     return {
-      key: '',
+      noRoom: [],
+      rows: [],
+      key: [],
       roomLists: [{
         'id': 1,
         adult: 'adult1',
-        child: 'child1'
+        child: 'child1',
+        room: 10
       }, {
         'id': 2,
         adult: 'adult2',
-        child: 'child2'
+        child: 'child2',
+        room: 10
       }, {
         'id': 3,
         adult: 'adult3',
-        child: 'child3'
+        child: 'child3',
+        room: 10
       }]
     };
   },
   methods: {
-    onChange: function onChange(event) {
-      console.log(event.target.value);
+    selectRoom: function selectRoom() {
+      this.rows.push({
+        adult: 34,
+        child: 45
+      });
+    },
+    addRow: function addRow() {
+      var elem = document.createElement('tr');
+      this.rows.push({
+        adult: 1,
+        child: 3,
+        room: 10
+      });
+    },
+    deleteRow: function deleteRow(index) {
+      this.rows.splice(index, 1);
+    },
+    setTmpQty: function setTmpQty(index) {
+      return this.roomLists[index].room;
     }
   }
 });
@@ -37103,109 +37132,148 @@ var render = function() {
     "form",
     { attrs: { action: "#", method: "get", id: "bookingform" } },
     [
-      _c("div", { staticClass: "row" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-group col-4" }, [
-          _c("h5", [_vm._v("Room")]),
-          _vm._v(" "),
-          _c(
-            "select",
-            {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.key,
-                  expression: "key"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { name: "room_id", id: "room_id" },
-              on: {
-                change: [
-                  function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.key = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  },
-                  function($event) {
-                    return _vm.onChange($event)
-                  }
-                ]
-              }
-            },
-            [
-              _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "4" } }, [_vm._v("4")])
-            ]
-          )
-        ])
-      ]),
+      _vm._m(0),
       _vm._v(" "),
-      _vm._m(2),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "append" } }, [
-        _c(
+      _vm._l(_vm.rows, function(row, index) {
+        return _c(
           "div",
-          { staticClass: "row" },
-          _vm._l(_vm.roomLists, function(room, index) {
-            return _c("div", { staticClass: "form-group col-4" }, [
-              _vm._v(
-                "\n             " + _vm._s(room.adult) + "\n             "
-              ),
-              _c("label", { attrs: { for: "my-input" } }, [_vm._v("Adult")]),
+          {
+            key: index,
+            staticClass: "animated fadeIn",
+            attrs: { id: "append" }
+          },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c("span", { staticClass: "col-2" }, [
+                _vm._v(
+                  "\n            Room No " + _vm._s(index + 1) + "\n         "
+                )
+              ]),
               _vm._v(" "),
-              _c("input", {
-                directives: [
+              _c("div", { staticClass: "form-group col-2" }, [
+                _c("label", { attrs: { for: "my-input" } }, [_vm._v("Adult")]),
+                _vm._v(" "),
+                _c(
+                  "a",
                   {
-                    name: "model",
-                    rawName: "v-model",
-                    value: room.adult,
-                    expression: "room.adult"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "my-input", type: "text", name: "adult" },
-                domProps: { value: room.adult },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
+                    staticClass: "num_minus",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.countQty(index, -1)
+                      }
                     }
-                    _vm.$set(room, "adult", $event.target.value)
+                  },
+                  [_vm._v("-")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: row.room,
+                      expression: "row.room"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "my-input", type: "number", name: "noroom" },
+                  domProps: { value: row.room },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(row, "room", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "num_plus",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.countQty(index, 1)
+                      }
+                    }
+                  },
+                  [_vm._v("+")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group col-2" }, [
+                _c("label", { attrs: { for: "my-input" } }, [_vm._v("Child")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: row.child,
+                      expression: "row.child"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "my-input", type: "number", name: "child" },
+                  domProps: { value: row.child },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(row, "child", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _vm._m(1, true)
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "button btn-danger",
+                attrs: { disabled: index == 0 },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.deleteRow($event)
                   }
                 }
-              })
-            ])
-          }),
-          0
+              },
+              [_vm._v("Deleet row")]
+            )
+          ]
         )
-      ]),
+      }),
       _vm._v(" "),
-      _c("div", { attrs: { id: "addmsg" } }),
+      _c(
+        "button",
+        {
+          staticClass: "button btn-primary",
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.addRow($event)
+            }
+          }
+        },
+        [_vm._v("Add row")]
+      ),
       _vm._v(" "),
       _c(
         "button",
         { staticClass: "btn btn-primary", attrs: { type: "submit" } },
         [_vm._v("Book Now")]
       )
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = [
@@ -37213,43 +37281,64 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-4" }, [
-      _c("label", { attrs: { for: "my-input" } }, [_vm._v("Check in")]),
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "form-group col-4" }, [
+        _c("label", { attrs: { for: "my-input" } }, [_vm._v("Check in")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "my-input", type: "date", name: "check_in" }
+        })
+      ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "my-input", type: "date", name: "check_in" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group col-4" }, [
-      _c("label", { attrs: { for: "my-input" } }, [_vm._v("Checkout")]),
+      _c("div", { staticClass: "form-group col-4" }, [
+        _c("label", { attrs: { for: "my-input" } }, [_vm._v("Checkout")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { id: "my-input", type: "date", name: "check_out" }
+        })
+      ]),
       _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { id: "my-input", type: "date", name: "check_out" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { attrs: { id: "append" } }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "form-group col-4" }, [
-          _c("label", { attrs: { for: "my-input" } }, [_vm._v("Adult")]),
-          _vm._v(" "),
-          _c("input", {
+      _c("div", { staticClass: "form-group col-4" }, [
+        _c("h5", [_vm._v("Room")]),
+        _vm._v(" "),
+        _c(
+          "select",
+          {
             staticClass: "form-control",
-            attrs: { id: "my-input", type: "number", name: "adult" }
-          })
-        ])
+            attrs: { name: "room_id", id: "room_id" }
+          },
+          [
+            _c("option", { attrs: { value: "1" } }, [_vm._v("1")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [_vm._v("2")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("3")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "4" } }, [_vm._v("4")])
+          ]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-2" }, [
+      _c("label", { attrs: { for: "my-input" } }, [_vm._v("Price")]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: {
+          readonly: "",
+          disabled: "",
+          id: "my-input",
+          type: "number",
+          name: "price"
+        }
+      })
     ])
   }
 ]

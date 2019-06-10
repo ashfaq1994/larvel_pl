@@ -59,7 +59,7 @@
                   <div class="row">
                     <div class="form-group col-4">
                         <label for="my-input">Adult</label>
-                        <input id="my-input"
+                        <input id="my-input" onchange="selectAdult(event)"
                         @if (session()->has('key'))
                             value="{{ Session::get('key')['adult'] }}"
                         @endif
@@ -91,6 +91,7 @@
     </div>
 </div>
 
+
 @endsection
 
 
@@ -100,13 +101,6 @@
 @section('js')
 <script>
     var i = 1;
-
-    var cartTotoal;
-    const caclTotal = () => {
-
-        return this.caclTotal = 100;
-    }
-    document.getElementById('cart').innerHTML = cartTotoal;
  function selectRoom(event)
  {
     var selectElement = event.target;
